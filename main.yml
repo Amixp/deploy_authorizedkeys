@@ -1,10 +1,7 @@
 ---
 
-- hosts: testfileservers
-  remote_user: devopuser
- 
+- hosts: all
   tasks:
-
   - name: Read variables
     include_vars: '{{ item }}'
     with_first_found:
@@ -15,6 +12,6 @@
 
   - name: Deploy SSH-Keys to remote host
     authorized_key:
-      user: hotzi4
+      user: root
       key: "{{ keystodeploy|map(attribute='sshkey')|join('\n') }}"
-      exclusive: true
+      exclusive: false
